@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <form [formGroup]="taskForm">
+    <div class="controls">
+      <div class="task-input">
+        <i name="create-outline"></i>
+        <input type="hidden" formControlName="taskId">
+        <input type="text" placeholder="Add a New Task" formControlName="task">
+      </div>
+      <button id="primary" #btn type="button" mat-button [disabled]="taskForm.invalid" (click)="addTask()" style="background-color: green; ">
+        Submit
+      </button>
+    </div>
+    <div class="controls">
+      <div class="filters">
+        <span class="active" #span id="All" (click)="todoList($event.target)">All</span>
+        <span id="Pending" #span (click)="filterTask(0, $event.target)">Pending</span>
+        <span id="Completed" #span (click)="filterTask(1, $event.target)">Completed</span>
+      </div>      
+    </div>
+    <ul class="task-box">
+      <li class="task" *ngFor="let item of taskList">
+        <label for="">              
+            <p>{{item.task}}</p>
+        </label>
+        <div class="settings">
+          <mat-icon style="font-size: larger;color: green" (click)="edit(item)">edit</mat-icon>
+          <mat-icon style="font-size: larger;color: #f12711" (click)="delete(item)">delete</mat-icon>
+          <mat-icon style="font-size: larger;color: green" *ngIf="item.status === 0" (click)="udpateStatus(item)">check</mat-icon>              
+        </div>
+      </li>             
+    </ul>    
+  </form>
+</div>
